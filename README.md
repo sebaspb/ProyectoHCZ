@@ -1,4 +1,4 @@
-**KRIEGSMACHINE**
+**Proyecto Ciudadano Zombie**
 -------------
 
 Éste proyecto ha sido creado para la clase de Desarrollo de Videojuegos en el SENA (Colombia); ha sido desarrollado en **Unity** utilizando el lenguaje de programación **C#**.
