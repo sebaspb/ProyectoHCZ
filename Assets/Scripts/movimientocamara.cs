@@ -4,46 +4,41 @@ using UnityEngine;
 
 public class movimientocamara : MonoBehaviour {
 
+    //We create 2 variables that will control the position of the mouse in the x and the y axis.
     float mouseX;
     float mouseY;
+    //We create a bool that control the inverted mouse option, in case the movement is inverted.
     public bool invertirmouse = false;
-
-   
-   
-
-    void Start () {
-       
-    }
 	
 	void Update () {
+        //We create a new gameobject called camera with the gameobject with the MainCamera Tag
         GameObject camera = GameObject.FindWithTag("MainCamera");
+        //We create a new gameobject called hero with the gameobject with the Hero Tag
         GameObject Hero = GameObject.FindGameObjectWithTag("Hero");
-        //Se asignan las variables que controlaran el movimiento del mouse con sus diferentes características.
-        mouseX += Input.GetAxis("Mouse X");//A la variable mouseX se le suma el moviento de mouse en el eje X
-        mouseY += Input.GetAxis("Mouse Y");//A la variable mouseY se le suma el movimiento de mouse en el eje Y
-        mouseY = Mathf.Clamp(mouseY, -45.0f, 45.0f);//Ésto hace que Mouse Y tenga un valor máximo en el que puede moverse y un valor mínimo
 
+        //We assign the variables that will control the mouse movement with their different characteristics.
+        //To the mouseX variable we add the mouse movement on the X axis
+        mouseX += Input.GetAxis("Mouse X");
+        //To the mouseX variable we add the mouse movement on the Y axis
+        mouseY += Input.GetAxis("Mouse Y");
+        //We limit the movement into the Y axis so the camera only can moves between that range.
+        mouseY = Mathf.Clamp(mouseY, -45.0f, 45.0f);
 
-        //Se confirma el estado actual del bool invertirmouse y se asigna el movimiento a la cámara según sea necesario
+        //The current status of the invert bool is confirmed and motion is assigned to the camera as required
         if (invertirmouse)
         {
-
-            camera.transform.eulerAngles = new Vector3(mouseY, mouseX, 0);//Éste consulta individualmente
-
-
+            //The camera angle is modified with the values of the mouse.
+            camera.transform.eulerAngles = new Vector3(mouseY, mouseX, 0);
         }
 
         if (!invertirmouse)
         {
-
-            camera.transform.eulerAngles = new Vector3(-mouseY, mouseX, 0);//Éste consulta individualmente
-
+            //The camera angle is modified with the values of the mouse, but the Y axis works inverted.
+            camera.transform.eulerAngles = new Vector3(-mouseY, mouseX, 0);
         }
 
-        //Se asigna el movimiento del héroe exactamente con el mismo movimiento de la cámara, sin embargo se limita al eje Y.
-        //Ésto se hace con el fin de evitar que el heroe se desplaze verticalmente cuando se mueve la cámara en ésta dirección.
-        Hero.transform.eulerAngles = new Vector3(0, mouseX, 0);
-
-
+        /*The movement of the hero is assigned exactly with the same movement of the camera, however it is limited to the Y axis.
+          This is done in order to prevent the hero from moving vertically when the camera is moved in that direction.*/
+          Hero.transform.eulerAngles = new Vector3(0, mouseX, 0);
     }
 }
