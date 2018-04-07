@@ -8,14 +8,14 @@ public class Enumer
 	public enum MiEnumeracion
 	{
 
-		e1,
-		e2,
-		e3
+		//e1,
+		//e2,
+		//e3
 		
 
 	}
 
-	MiEnumeracion valor = (MiEnumeracion)Random.Range(0,3);
+	//MiEnumeracion valor = (MiEnumeracion)Random.Range(0,3);
 	private void Start () 
 	{
 		

@@ -15,9 +15,9 @@ public class EjemploStruct : MonoBehaviour
 	private void Start () 
 	{
 		
-		myStruct mStruct = new myStruct();
-		mStruct.a = 1;
-		Debug.Log(mStruct.a);
+		//myStruct mStruct = new myStruct();
+		//mStruct.a = 1;
+		//Debug.Log(mStruct.a);
 	}
 	
 	

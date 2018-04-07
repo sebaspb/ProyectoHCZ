@@ -2,53 +2,153 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Zombies 
+public class Zombies : MonoBehaviour
 {
 
-	int trigger;
+    public struct ZombieInformation
+    {
+
+        public Color color;
+        public ZComportamiento comportamiento;
+        public Vector3 vel;
+        public ZGusto gusto;
+    }
+    
+    public enum ZGusto
+    {
+        cerebro,
+        ojos,
+        corazón,
+        intestinos,
+        hígado,
+    }
+
+    public enum ZComportamiento
+    {
+        idle,
+        moving,
+    }
+    int comportamiento = ZComportamiento.GetNames(typeof(ZComportamiento)).Length;
+
+    public ZombieInformation zInformation;
+   
+    void Start() {
+        int gustos = ZGusto.GetNames(typeof(ZGusto)).Length;
+        zInformation.gusto = (ZGusto)Random.Range(0, gustos);
+
+        zInformation.vel.x = 5f;
+        int casoZ = Random.Range(0,3);
+        
+
+
+
+        switch (casoZ)
+        {
+
+            case 0:
+                GetComponent<Renderer>().material.SetColor("_Color", Color.cyan);
+                break;
+
+            case 1:
+                GetComponent<Renderer>().material.SetColor("_Color", Color.magenta);
+                break;
+
+            case 2:
+                GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+                break;
+
+        }
+
+    
+
+        StartCoroutine(Estado(0));
+
+        
+
+
+    }
+
+    private void Update()
+    {
+        if (zInformation.comportamiento == (ZComportamiento)1)
+        {
+            transform.Translate(zInformation.vel * Time.deltaTime);
+
+        }
+    }
+
   
-	public Zombies()
-	{
-        //Se crea una primitiva de tipo cubo en una posición aleatoria y se le asigna el nombre Zombie.
-        GameObject Zombies = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		Zombies.transform.position = new Vector3(Random.Range(100,450),0.5f, Random.Range(100,450));
-        Zombies.name = "Zombie ";
-       
-        //Se asignan 3 valores posibles al desencadenante
-        trigger = Random.Range(0,3);
-        
-        
+    IEnumerator Estado(float time)
+    {
+        yield return new WaitForSeconds(time);
+       zInformation.comportamiento = (ZComportamiento)Random.Range(0, comportamiento);
+           
+        StartCoroutine(Estado(5));
+    }
 
-		switch(trigger)
-		{
-            //En el caso uno, se le asigna el color cian al zombie y se muestra el mensaje correspondiente.
-			case 0:
-			Zombies.GetComponent<Renderer>().material.SetColor("_Color",Color.cyan);
-                Debug.Log("Soy un zombie color Cian");
 
-                break;
-			case 1:
-                //En el caso uno, se le asigna el color magenta al zombie y se muestra el mensaje correspondiente.
-
-                Zombies.GetComponent<Renderer>().material.SetColor("_Color",Color.magenta);
-                Debug.Log("Soy un zombie color Magenta");
-                break;
-			case 2:
-                //En el caso uno, se le asigna el color verde al zombie y se muestra el mensaje correspondiente.
-
-                Zombies.GetComponent<Renderer>().material.SetColor("_Color",Color.green);
-                Debug.Log("Soy un zombie color Verde");
-                break;	
-
-		}
-		
-	}
-	void Start()
-	{
-
-		
-		
-				
-	}
-	
 }
+//    public struct PosicionZombie
+//    {
+//        public Vector3 pos;
+//        public string nombre;
+//        public Color color;
+//        public string tag;
+//    }
+
+//    public enum Cuerpo
+//    {
+
+//        cerebro,
+//        ojos,
+//        corazón,
+//        intestinos,
+//        hígado,
+
+//    }
+
+//    PosicionZombie posicionzombie;
+    
+
+//    public Zombies(){
+
+        
+//        posicionzombie.pos = new Vector3(Random.Range(100, 450), 0.5f, Random.Range(100, 450));
+//        posicionzombie.nombre = "Zombie";
+//        posicionzombie.tag = "Zombie";
+
+//        int Desencadenante = Random.Range(0, 3);
+
+//        switch (Desencadenante)
+//        {
+//            case 0:
+//                posicionzombie.color = Color.green;
+//                break;
+
+//            case 1:
+//                posicionzombie.color = Color.cyan;
+//                break;
+
+//            case 2:
+
+//                posicionzombie.color = Color.magenta;
+//                break;
+
+//        }
+      
+
+//        GameObject Zombies = GameObject.CreatePrimitive(PrimitiveType.Cube);
+//        Zombies.transform.position = posicionzombie.pos;
+//        Zombies.name = posicionzombie.nombre;
+//        Zombies.tag = posicionzombie.tag;
+//        //Zombies.AddComponent<Rigidbody>();
+//        Zombies.GetComponent<Renderer>().material.SetColor("_Color", posicionzombie.color);
+
+
+//    }
+
+//    void Start()
+//    {
+//    }
+
+//}
