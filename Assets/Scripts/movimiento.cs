@@ -3,76 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class movimiento : MonoBehaviour {
+
+    //We create a variable to store the speed of the hero.
     public float speed;
-    public Citizen.CitizenInformation cinfo;
-    public Zombies.ZombieInformation zinfo;
 
-    // Use this for initialization
-    void Start () {
-		speed = Random.Range(0.1f, 0.5f);
-
-        
-
+    /*Start is called only once at the start*/
+    void Start ()
+    {
+        //At the start we assign the speed with a random range between 0.1 and 1
+        speed = Random.Range(0.1f, 1);
     }
 	
-	// Update is called once per frame
-	void Update () {
-        GameObject Hero = GameObject.FindGameObjectWithTag("Hero");
-
-        if (Input.GetKey("w"))
-        {
-
-            Hero.transform.position += Hero.transform.forward * speed;
-
-        }
-
-        if (Input.GetKey("s"))
-        {
-
-            Hero.transform.position -= Hero.transform.forward * speed;
-
-        }
-
-        if (Input.GetKey("a"))
-        {
-
-            Hero.transform.position -= Hero.transform.right * speed;
-
-        }
-
-        if (Input.GetKey("d"))
-        {
-
-            Hero.transform.position += Hero.transform.right * speed;
-
-        }
-
-    }
-
-
-    void OnCollisionEnter(Collision obj)
+    //Update is called each frame.
+	void Update ()
     {
 
+        //We create a new gameobject called hero that's equal to the gameobject with the hero tag.
+        GameObject Hero = GameObject.FindGameObjectWithTag("Hero");
 
-           if (obj.gameObject.GetComponent<Citizen>())
-           {
-
-            cinfo = obj.gameObject.GetComponent<Citizen>().cInformation;
-
-                Debug.Log("Hola soy " + cinfo.name + " y tengo " + cinfo.age + " años");
-
-         }
-
-
-        if (obj.gameObject.GetComponent<Zombies>())
+        //If we press the "w" key, the hero will transform it's position forward at the speed value.
+        if (Input.GetKey("w"))
         {
+            Hero.transform.position += Hero.transform.forward * speed;
+        }
 
-            zinfo = obj.gameObject.GetComponent<Zombies>().zInformation;
+        //If we press the "s" key, the hero will transform it's position backwards at the speed value.
+        if (Input.GetKey("s"))
+        {
+            Hero.transform.position -= Hero.transform.forward * speed;
+        }
 
-            Debug.Log("Waaaarrrr quiero comer " + zinfo.gusto);
+        //If we press the "a" key, the hero will transform it's position to the right at the speed value.
+        if (Input.GetKey("a"))
+        {
+            Hero.transform.position -= Hero.transform.right * speed;
+        }
 
+        //If we press the "d" key, the hero will transform it's position to the left at the speed value.
+        if (Input.GetKey("d"))
+        {
+            Hero.transform.position += Hero.transform.right * speed;
         }
 
     }
-
 }
