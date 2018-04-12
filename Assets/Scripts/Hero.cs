@@ -1,16 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using NPC.Enemy;
+using NPC.Ally;
+    
 public class Hero :MonoBehaviour
 {
-
+    public static float randomV;
+    
     //First we create 2 variables that are created from the structs of the zombies and citizen scripts.
     public Citizen.CitizenInformation cinfo;
     public Zombies.ZombieInformation zinfo;
 
+     void Start()
+    {
+        //Variable that invokes what assigns the value of the readonly that is in motion
+        randomV = Random.Range(0.1f,1);
+        gameObject.AddComponent<movimiento>();
+        
 
+    }
     //In case of collision
     void OnCollisionEnter(Collision obj)
     {
@@ -35,6 +44,8 @@ public class Hero :MonoBehaviour
         }
 
     }
+
+   
 
 
 }

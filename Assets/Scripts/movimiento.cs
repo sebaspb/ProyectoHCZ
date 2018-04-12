@@ -4,14 +4,26 @@ using UnityEngine;
 
 public class movimiento : MonoBehaviour {
 
-    //We create a variable to store the speed of the hero.
-    public float speed;
+    //A read-only variable called speed is created
+    readonly float speed;
+
+    //Builder
+    public movimiento()
+    {
+        //Here it is said that speed is equal to the randomV variable of the Hero script
+        speed = Hero.randomV;
+        
+    }
+
+   
+
+
 
     /*Start is called only once at the start*/
     void Start ()
     {
         //At the start we assign the speed with a random range between 0.1 and 1
-        speed = Random.Range(0.1f, 1);
+       
     }
 	
     //Update is called each frame.

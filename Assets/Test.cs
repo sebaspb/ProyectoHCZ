@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enumer
+public class Test : MonoBehaviour 
 {
+	const int CUATRO = 4;
+	readonly int value;
 
-	public enum MiEnumeracion
+	public Test()
 	{
 
-		//e1,
-		//e2,
-		//e3
-		
+		value = Initillizer.randomMin;
+		print(value);
 
 	}
-
-	//MiEnumeracion valor = (MiEnumeracion)Random.Range(0,3);
 	private void Start () 
 	{
 		
