@@ -85,7 +85,7 @@ public class Instancias : MonoBehaviour
        
         //We create a for that goes from 0 to the value of the previous variable.
 
-        for (int a = 0; a <= Instanciado;)
+        for (int a = 0; a < Instanciado;)
         {
             //We create a new gameobject with a primitive of the cube type.
             GameObject Objeto = GameObject.CreatePrimitive(PrimitiveType.Cube);
