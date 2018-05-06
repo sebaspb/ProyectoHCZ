@@ -15,9 +15,10 @@ public class Hero :MonoBehaviour
      void Start()
     {
         //Variable that invokes what assigns the value of the readonly that is in motion
+        
         randomV = Random.Range(0.1f,1);
         gameObject.AddComponent<movimiento>();
-        
+
 
     }
 

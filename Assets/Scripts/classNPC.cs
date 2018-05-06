@@ -16,10 +16,7 @@ public class classNPC : MonoBehaviour
     Vector3 direction;
 
     public float distancia = 5;
-    public Date NewDate()
-    {
-        return init;
-    }
+ 
 
     virtual public void Herent()
     {
@@ -121,12 +118,12 @@ public class classNPC : MonoBehaviour
             {
                 Speed = 0.1f;
             }
-            cases = Random.Range(1, 7);//calls the switch to move in different positions.
+            cases = Random.Range(1,4);//calls the switch to move in different positions.
             StartCoroutine(Movement());//it's called coroutine.
         }
         else if (init.keep == state.rotation)//if not, if the state this rotation.
         {
-            cases = Random.Range(5, 7);//calls the switch to move in different positions.
+            cases = Random.Range(5, 6);//calls the switch to move in different positions.
             StartCoroutine(Movement());//it's called coroutine
         }
     }
@@ -149,4 +146,3 @@ public struct Date//the structure is made to be able to call the food, the state
 
 }
 
-//Usar virtual en NPC y override en Zombie y Citizen

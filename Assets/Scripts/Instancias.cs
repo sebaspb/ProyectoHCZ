@@ -21,13 +21,13 @@ public class Instancias : MonoBehaviour
     float totalentidades = 0;
 
     //A public Transform is created to occupy the space of the interface to display the number of zombies
-    public Transform TextoZombies;
+    public Transform TransformTextoZombies;
 
     //Se crea un componente texto para que se pueda colocar lo que hay en totalZombies
     public Text TextoZombie;
 
     //A public Transform is created to occupy the space of the interface to display the number of Citizen
-    public Transform TextoCitizen;
+    public Transform TransformTextoCitizen;
 
     //Se crea un componente texto para que se pueda colocar lo que hay en totalZombies
 
@@ -38,10 +38,25 @@ public class Instancias : MonoBehaviour
     public static List<GameObject> Objects = new List<GameObject>();
 
     /*Start is called only once at the start*/
+
+    public class EntitiesNumber
+    {
+        //Variable that is used for read-only integer call only Num 
+        public readonly int Num;
+
+        //Builder
+        public EntitiesNumber()
+        {
+            //It says here that Num equals a random range between 5 and 15
+            Num = Random.Range(5, 15);
+
+        }
+
+    }
+
     private void Start () 
 	{
-        //It is said that instanciado is equal to the random variable of the constructor new CubesN with the variable Num and its maximum will be the constant Max
-        Instanciado = Random.Range(new CubesN().Num, MAX);
+
         //The bool heroeasginado is checked; if it's false we proceed to create the hero
         if (!heroeasignado) { 
 
@@ -56,16 +71,12 @@ public class Instancias : MonoBehaviour
             Objeto.tag = "Hero";
             //We add the script Hero to the object, that script controls the collision messages.
             Objeto.AddComponent<Hero>();
-            //We add the script movimiento to the object, that script controls the movement of the hero.
-            Objeto.AddComponent<movimiento>();
             //We add the script movimientocamara to the object, that script controls the movement of the camera.
             Objeto.AddComponent<movimientocamara>();
             //We add a rigid body to the object so it can collide with other entities.
             Objeto.AddComponent<Rigidbody>();
             //We change the kinematic mode to true to fix a bug that made the hero tilt on the ground.
             Objeto.GetComponent<Rigidbody>().isKinematic=true;
-            //We add the script hero to the object, so the collision messages can work as intended.
-            Objeto.AddComponent<Hero>();
             //We create a new gameobject with the name camera and its equal to the object with the tag MainCamera.
             GameObject Camera = GameObject.FindWithTag("MainCamera");
             //We make the camera as a child of the hero object.
@@ -80,10 +91,12 @@ public class Instancias : MonoBehaviour
             Objects.Add(Objeto);
         }
 
-        //We create a new int called cantidad that is a random number between 10 and 19, because the max number of the range
-        //is exlusive.,
-        
-       
+  
+
+
+        //It is said that instanciado is equal to the random variable of the constructor new EntitiesNumber with the variable Num and its maximum will be the constant Max
+        Instanciado = Random.Range(new EntitiesNumber().Num, MAX);
+
         //We create a for that goes from 0 to the value of the previous variable.
 
         for (int a = 0; a < Instanciado;)
@@ -164,9 +177,9 @@ public class Instancias : MonoBehaviour
             //Message displayed on the console to show the total number of Citizens
             Debug.Log("El total de ciudadanos es " + totalCiudadanos);
             //The TextZombies transform with the Text component is equal to the totalZombies value and that becomes the String
-            TextoZombies.GetComponent<Text>().text = totalZombies.ToString();
+            TransformTextoZombies.GetComponent<Text>().text = "Total Zombies: " + totalZombies.ToString();
             //The TextZombies transform with the Text component is equal to the totalZombies value and that becomes the String
-            TextoCitizen.GetComponent<Text>().text = totalCiudadanos.ToString();
+            TransformTextoCitizen.GetComponent<Text>().text = "Total Ciudadanos: " + totalCiudadanos.ToString();
         
             //El canvas de los mensajes de zombies y ciudadanos se hace llamando la lista creada en instancias en un foreach 
     }
@@ -174,20 +187,7 @@ public class Instancias : MonoBehaviour
 }
 
 
-public class CubesN
-{
-    //Variable that is used for read-only integer call only Num 
-    public readonly int Num;
 
-    //Builder
-    public CubesN()
-    {
-        //It says here that Num equals a random range between 5 and 15
-        Num = Random.Range(5,15);
-
-    }
-
-} 
 
 
 
