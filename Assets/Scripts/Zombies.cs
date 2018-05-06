@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NPC.Allied;
 
 //This makes what is put in the script into a library.
 namespace NPC
@@ -8,49 +9,13 @@ namespace NPC
     //This makes what is put in the script into a library.
     namespace Enemy
     {
-        public class Zombies : MonoBehaviour
+        //Al zombie se le debe dar una edad y cuando un zombie convierta a un ciudadano en zombie éste debe mantener la edad del ciudadano que se convirtió.
+        public class Zombies : classNPC
         {
-            //We create a new structure that will store the information for the zombie
-            //the color, the movement behaviour, the movement direction, and the part of body that wants to eat.
-            public struct ZombieInformation
+           
+            public void Colors()
             {
-             public Color color;
-             public ZComportamiento comportamiento;
-             public int mov;
-             public int rot;
-             public ZGusto gusto;
-       
-            }
 
-            //We create a enumerator that stores the parts of body that the zombies can eat.
-            public enum ZGusto
-            {
-                cerebro,
-                ojos,
-                corazón,
-                intestinos,
-                hígado,
-             }
-
-            //we create a enumerator that stores the different states that the zombie can take.
-            public enum ZComportamiento
-            {
-             idle,
-             moving,
-             rotating,
-        
-             }
-
-             //We create a new int variable that's equal to the number of elements in the ZComportamiento enum.
-            int comportamiento = ZComportamiento.GetNames(typeof(ZComportamiento)).Length;
-  
-            //We create a new structure from the previous data, this structure is called Zinformation.
-            public ZombieInformation zInformation;
-
-            //Start is called only once at the star.
-             void Start() 
-             {
-       
                 //We create a new int variable that's equal to the number of elements in the zGusto enum.
                 int gustos = ZGusto.GetNames(typeof(ZGusto)).Length;
 
@@ -75,19 +40,112 @@ namespace NPC
 
                     //in the third case, we'll get the material and we'll assign the green color to it.
                     case 2:
-                         GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+                        GetComponent<Renderer>().material.SetColor("_Color", Color.green);
                     break;
 
                 }
 
-                //We start the coroutine called Estado within 0 seconds, so it can be initialized as soon as posible.
-                StartCoroutine(Estado(0));
             }
 
-            //Update is called each frame
-            private void Update()
+            //public float DistanciaMinima = 5;
+            //We create a new structure that will store the information for the zombie
+            //the color, the movement behaviour, the movement direction, and the part of body that wants to eat.
+            public struct ZombieInformation
             {
+                //public Color color;
+                /*public ZComportamiento comportamiento;
+                public int mov;
+                public int rot;
+                public int pur;
+                */ 
+                public ZGusto gusto;
+                public zColor ZoColor;
+       
+            }
+
+            //We create a enumerator that stores the parts of body that the zombies can eat.
+            public enum ZGusto
+            {
+                cerebro,
+                ojos,
+                corazón,
+                intestinos,
+                hígado,
+            }
+
+            //we create a enumerator that stores the different states that the zombie can take.
+         /*    public enum ZComportamiento
+            {
+             
+                idle,
+                moving,
+                rotating,
+                pursuing,
         
+            } */
+
+            //We create a new int variable that's equal to the number of elements in the ZComportamiento enum.
+            //int comportamiento = ZComportamiento.GetNames(typeof(ZComportamiento)).Length;
+  
+            //We create a new structure from the previous data, this structure is called Zinformation.
+            public ZombieInformation zInformation;
+
+            override public void Herent()
+            {
+
+                Rot = Random.Range(1, 10);
+                Move();
+                init.age = Random.Range(15, 100);//the age of the civilians is added at random between 15 and 100 years of age.
+               
+                
+            }
+
+         
+            public enum zColor
+            {
+
+                green,
+                cyan,
+                magenta,
+
+            }
+
+           
+
+            //Start is called only once at the star.
+            void Start() 
+            {
+
+               base.Herent();
+               int ZoColor = zColor.GetNames(typeof(zColor)).Length;
+               this.gameObject.GetComponent<Renderer>();
+               Colors();
+            
+            }
+         
+           
+            void OnCollisionEnter(Collision other)
+            {
+                if(other.gameObject.GetComponent<Citizen>())
+                {
+
+                    Citizen c = other.gameObject.GetComponent<Citizen>();
+                    Zombies z = c;
+
+                }
+                
+            }                       
+        }
+        
+    }
+
+    
+}         
+
+            //Update is called each frame
+           /*  private void Update()
+            {
+                float Distancia = Vector3.Distance(Objetivo.position, transform.position);
                 float speedRot = Random.Range(0.1f,1);
                 //We check if the Zcomportamiento value is = to 1; in that case the zombie will move.
                 //The assignation to that variable is in the coroutine.
@@ -138,12 +196,25 @@ namespace NPC
                     }
 
                 }
+
+                
+                
+                    if (Distancia <= DistanciaMinima)
+                    {
+                        Vector3 PosicionTarget = new Vector3(Objetivo.position.x, this.transform.position.y, Objetivo.position.z);
+                        transform.LookAt(PosicionTarget);
+                    }
+ */
+                
+
+              
+                
          
-            }
+            
 
 
-            //We create a coroutine that is called estado
-            IEnumerator Estado(float time)
+            //We create a coroutine that is called estado 
+           /*  IEnumerator Estado(float time)
             {   
                 yield return new WaitForSeconds(time);
                 //We assign the comportamiento value of the structure to be between 0 and the comportamiento max value.
@@ -154,8 +225,9 @@ namespace NPC
                 zInformation.rot = Random.Range(0,2);
                 //We repeat the coroutine each 3 seconds.
                 StartCoroutine(Estado(3));
-            }
-        }
-    }
-}
+            }  */
+            
+
+
+//Zombie hereda de NPC
  

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NPC.Enemy;
-using NPC.Ally;
+using NPC.Allied;
 using UnityEngine.UI;
 public class Instancias : MonoBehaviour 
 {
-   /*First a bool is created to check if the hero has already been assigned; this is to ensure that
-   that only one hero be assigned.*/
+    /*First a bool is created to check if the hero has already been assigned; this is to ensure that
+    that only one hero be assigned.*/
     bool heroeasignado = false;
 
     //A real variable called Instantiated is created
@@ -35,15 +35,14 @@ public class Instancias : MonoBehaviour
 
     //A list called Objects is created to save what is inside the foreach.
 
-    List<GameObject> Objects = new List<GameObject>();
-
+    public static List<GameObject> Objects = new List<GameObject>();
 
     /*Start is called only once at the start*/
     private void Start () 
 	{
         //It is said that instanciado is equal to the random variable of the constructor new CubesN with the variable Num and its maximum will be the constant Max
         Instanciado = Random.Range(new CubesN().Num, MAX);
-        /*The bool heroeasginado is checked; if it's false we proceed to create the hero*/
+        //The bool heroeasginado is checked; if it's false we proceed to create the hero
         if (!heroeasignado) { 
 
             //We create a new primitive of the cube type.       
@@ -77,6 +76,8 @@ public class Instancias : MonoBehaviour
             heroeasignado = true;
             //The totalentidades values is increased by one.
             totalentidades += 1;
+
+            Objects.Add(Objeto);
         }
 
         //We create a new int called cantidad that is a random number between 10 and 19, because the max number of the range
@@ -167,7 +168,7 @@ public class Instancias : MonoBehaviour
             //The TextZombies transform with the Text component is equal to the totalZombies value and that becomes the String
             TextoCitizen.GetComponent<Text>().text = totalCiudadanos.ToString();
         
-       
+            //El canvas de los mensajes de zombies y ciudadanos se hace llamando la lista creada en instancias en un foreach 
     }
     
 }
@@ -187,6 +188,8 @@ public class CubesN
     }
 
 } 
+
+
 
     
 

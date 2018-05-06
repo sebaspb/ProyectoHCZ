@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class movimiento : MonoBehaviour {
+public class movimiento : MonoBehaviour 
+{
 
     //A read-only variable called speed is created
     readonly float speed;

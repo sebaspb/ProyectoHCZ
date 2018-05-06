@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NPC.Enemy;
-using NPC.Ally;
+using NPC.Allied;
     
 public class Hero :MonoBehaviour
 {
@@ -20,12 +20,20 @@ public class Hero :MonoBehaviour
         
 
     }
-    //In case of collision
+
+    void Update()
+    {
+
+        //El canvas de los mensajes de zombies y ciudadanos se hace llamando la lista creada en instancias en un foreach 
+        
+    }
+  
+    //In case of collision/* 
     void OnCollisionEnter(Collision obj)
     {
 
         //if the object it collides with has the tag Ciudadano
-        if (obj.gameObject.tag=="Ciudadano")
+        if (obj.gameObject.GetComponent<Citizen>())
         {
             //We change the variable cinfo to be equal as the information stored in the structure of that citizen.
             cinfo = obj.gameObject.GetComponent<Citizen>().cInformation;
@@ -34,7 +42,7 @@ public class Hero :MonoBehaviour
         }
 
         //if the object it collides with has the tag Zombie
-        if (obj.gameObject.tag == "Zombie")
+        if (obj.gameObject.GetComponent<Zombies>())
         {
             //We change the variable zinfo to be equal as the information stored in the structure of that zombie.
             zinfo = obj.gameObject.GetComponent<Zombies>().zInformation;
@@ -44,6 +52,7 @@ public class Hero :MonoBehaviour
         }
 
     }
+     
 
    
 

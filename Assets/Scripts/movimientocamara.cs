@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class movimientocamara : MonoBehaviour {
+public class movimientocamara : MonoBehaviour 
+{
 
     //We create 2 variables that will control the position of the mouse in the x and the y axis.
     float mouseX;
