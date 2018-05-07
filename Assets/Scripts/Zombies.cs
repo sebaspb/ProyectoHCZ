@@ -92,20 +92,20 @@ namespace NPC
 
             }
 
-           
 
             //Start is called only once at the star.
             void Start() 
             {
-
                base.Herent();
                int ZoColor = zColor.GetNames(typeof(zColor)).Length;
                this.gameObject.GetComponent<Renderer>();
                Colors();
             
             }
-         
-           
+
+        
+
+
             void OnCollisionEnter(Collision other)
             {
                 if(other.gameObject.GetComponent<Citizen>())
@@ -118,6 +118,8 @@ namespace NPC
                 
             }                       
         }
+
+         
         
     }
 

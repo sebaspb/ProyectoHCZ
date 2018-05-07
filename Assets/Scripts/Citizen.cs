@@ -87,6 +87,10 @@ namespace NPC
             {
 
                 Zombies z = c.gameObject.AddComponent<Zombies>();
+              
+                c.name = "Zombie";
+                //We assign the tag zombie to that object so it can be easily accesed later.
+                c.tag = "Zombie";
                 Destroy(c);
                 return z;
 

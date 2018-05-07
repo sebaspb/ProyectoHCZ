@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NPC.Allied;
 using NPC.Enemy;
-
+using UnityEngine.UI;
 public class classNPC : MonoBehaviour 
 {
 	public Date init;
@@ -12,12 +12,14 @@ public class classNPC : MonoBehaviour
     protected int cases;
 
     public Transform Objetivo;
+    public Zombies.ZombieInformation zinfo;
 
     Vector3 direction;
 
     public float distancia = 5;
- 
+    public static float distanciastatic;
 
+    
     virtual public void Herent()
     {
 
@@ -30,30 +32,41 @@ public class classNPC : MonoBehaviour
     virtual public void test()
     {
 
-        foreach(GameObject ObjectsTest in Instancias.Objects)
+
+ 
+
+        foreach (GameObject ObjectsTest in Instancias.Objects)
         {
 
-            if(ObjectsTest.GetComponent<Citizen>() || ObjectsTest.GetComponent<Hero>())
+            if (ObjectsTest.GetComponent<Citizen>() || ObjectsTest.GetComponent<Hero>())
             {
-                
-                if( Vector3.Distance(ObjectsTest.transform.position ,transform.position) < distancia)
+
+                if (Vector3.Distance(ObjectsTest.transform.position, transform.position) < distancia)
                 {
-                    
+
                     init.keep = state.pursuing;
                     transform.position = Vector3.MoveTowards(transform.position, ObjectsTest.transform.position, Speed);
                     StopCoroutine(Movement());
-                                       
+
 
                 }
 
+            
             }
 
         }
-
     }
 
+
+
+
+
     void Update()
-    {   
+    {
+
+       
+
+
         test();
            
         switch (cases)//the switch is used for different positions where the zombie is directed.
@@ -79,11 +92,27 @@ public class classNPC : MonoBehaviour
             case 7:
                 transform.position += new Vector3(0, 0, 0);
                 break;
-           
+
+          
+
         }
 
-       
-       
+        foreach (GameObject ObjectsTest in Instancias.Objects)
+        {
+            if (ObjectsTest.name == "Zombie") { 
+
+                
+
+            if (Vector3.Distance(ObjectsTest.transform.position, GameObject.FindGameObjectWithTag("Hero").transform.position) < distancia)
+            {
+                    zinfo = ObjectsTest.gameObject.GetComponent<Zombies>().zInformation;
+
+                    Instancias.TransformMsgZombiesStatic.GetComponent<Text>().text = "Waaaarrrr quiero comer " + zinfo.gusto;
+                    StartCoroutine(limpiarmensaje(3));
+                }
+        }
+    }
+
     }
     public void Move()//a function is created for the movement.
     {
@@ -134,6 +163,14 @@ public class classNPC : MonoBehaviour
         Move();//is called the Move function.
         yield return new WaitForSeconds(3);//takes 3 seconds to work.
     }
+
+    IEnumerator limpiarmensaje(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Instancias.TransformMsgZombiesStatic.GetComponent<Text>().text = "";
+
+    }
+
 }
 public enum state//a list is made of the zombie state.
 {
@@ -145,4 +182,6 @@ public struct Date//the structure is made to be able to call the food, the state
     public int age;//an int variable is made for age.
 
 }
+
+
 

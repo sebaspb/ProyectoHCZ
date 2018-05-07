@@ -33,6 +33,28 @@ public class Instancias : MonoBehaviour
 
     public Text TextoCitizens;
 
+    //A public Transform is created to occupy the space of the interface to display the number of Citizen
+    public static Transform TransformMsgCitizenStatic;
+
+
+    //A public Transform is created to occupy the space of the interface to display the number of Citizen
+    public Transform TransformMsgCitizen;
+
+    //Se crea un componente texto para que se pueda colocar lo que hay en totalZombies
+
+    public Text MsgCitizens;
+
+    //A public Transform is created to occupy the space of the interface to display the number of Citizen
+    public static Transform TransformMsgZombiesStatic;
+
+
+    //A public Transform is created to occupy the space of the interface to display the number of Citizen
+    public Transform TransformMsgZombies;
+
+    //Se crea un componente texto para que se pueda colocar lo que hay en totalZombies
+
+    public Text MsgZombies;
+
     //A list called Objects is created to save what is inside the foreach.
 
     public static List<GameObject> Objects = new List<GameObject>();
@@ -56,7 +78,8 @@ public class Instancias : MonoBehaviour
 
     private void Start () 
 	{
-
+        TransformMsgCitizenStatic = TransformMsgCitizen;
+        TransformMsgZombiesStatic = TransformMsgZombies;
         //The bool heroeasginado is checked; if it's false we proceed to create the hero
         if (!heroeasignado) { 
 
@@ -92,7 +115,7 @@ public class Instancias : MonoBehaviour
         }
 
   
-
+       
 
         //It is said that instanciado is equal to the random variable of the constructor new EntitiesNumber with the variable Num and its maximum will be the constant Max
         Instanciado = Random.Range(new EntitiesNumber().Num, MAX);
@@ -126,7 +149,10 @@ public class Instancias : MonoBehaviour
                     totalentidades += 1;
                     //All GameObjects called Objeto are added and saved in Objects
                     Objects.Add(Objeto);
-                break;
+                    Objeto.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                    Objeto.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ;
+                    Objeto.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationY;
+                    break;
 
                 case 1:
                     //We assign the name zombie to that object so it can be easily differenciable in the hierarchy panel
@@ -141,14 +167,16 @@ public class Instancias : MonoBehaviour
                     totalentidades += 1;
                     //All GameObjects called Objeto are added and saved in Objects
                     Objects.Add(Objeto);
-                break;
+                     break;
             }
                 //the a variable is increased by one and the for is repeted until the condition is meeted.
                 a += 1;
                  
         }
-            //An integer variable called totalZombies is created that is equal to 0 that will store the total of zombies
-            int totalZombies = 0;
+
+
+        //An integer variable called totalZombies is created that is equal to 0 that will store the total of zombies
+        int totalZombies = 0;
             //An integer variable called totalCiudadanos is created that is equal to 0 that will store the total of Citizen
             int totalCiudadanos = 0;
             //A foreach is created that takes all GameObjects named ObjectsNum and puts them in the Objects list. 
@@ -180,10 +208,18 @@ public class Instancias : MonoBehaviour
             TransformTextoZombies.GetComponent<Text>().text = "Total Zombies: " + totalZombies.ToString();
             //The TextZombies transform with the Text component is equal to the totalZombies value and that becomes the String
             TransformTextoCitizen.GetComponent<Text>().text = "Total Ciudadanos: " + totalCiudadanos.ToString();
-        
-            //El canvas de los mensajes de zombies y ciudadanos se hace llamando la lista creada en instancias en un foreach 
+
+        //El canvas de los mensajes de zombies y ciudadanos se hace llamando la lista creada en instancias en un foreach 
     }
-    
+
+
+    void Update()
+    {
+
+        TransformMsgCitizen = TransformMsgCitizenStatic;
+
+     }
+
 }
 
 
