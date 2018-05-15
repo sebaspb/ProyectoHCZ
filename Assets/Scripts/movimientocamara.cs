@@ -12,6 +12,8 @@ public class movimientocamara : MonoBehaviour
     public bool invertirmouse = false;
 	
 	void Update () {
+
+        if (Time.timeScale != 0) { 
         //We create a new gameobject called camera with the gameobject with the MainCamera Tag
         GameObject camera = GameObject.FindWithTag("MainCamera");
         //We create a new gameobject called hero with the gameobject with the Hero Tag
@@ -41,5 +43,6 @@ public class movimientocamara : MonoBehaviour
         /*The movement of the hero is assigned exactly with the same movement of the camera, however it is limited to the Y axis.
           This is done in order to prevent the hero from moving vertically when the camera is moved in that direction.*/
           Hero.transform.eulerAngles = new Vector3(0, mouseX, 0);
+    }
     }
 }

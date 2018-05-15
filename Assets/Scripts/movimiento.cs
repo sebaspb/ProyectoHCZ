@@ -30,7 +30,7 @@ public class movimiento : MonoBehaviour
     //Update is called each frame.
 	void Update ()
     {
-
+        if (Time.timeScale != 0) { 
         //We create a new gameobject called hero that's equal to the gameobject with the hero tag.
         GameObject Hero = GameObject.FindGameObjectWithTag("Hero");
 
@@ -58,5 +58,6 @@ public class movimiento : MonoBehaviour
             Hero.transform.position += Hero.transform.right * speed;
         }
 
+    }
     }
 }

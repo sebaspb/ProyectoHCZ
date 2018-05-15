@@ -43,8 +43,8 @@ public class Hero : MonoBehaviour
         if (obj.gameObject.GetComponent<Zombies>())
         {
 
-
-            Debug.Log("gameover");
+            Instancias.TransformMsgZombiesStatic.GetComponent<Text>().text = "";
+            Instancias.TransformMsgGOStatic.GetComponent<Text>().text = "Game over";
             if (Time.timeScale == 1.0f)
             {
                 Time.timeScale = 0.0f;

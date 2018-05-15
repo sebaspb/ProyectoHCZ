@@ -65,14 +65,14 @@ public class classNPC : MonoBehaviour
     {
 
        
-
+        if (Time.timeScale != 0) { 
 
         test();
            
         switch (cases)//the switch is used for different positions where the zombie is directed.
         {
             case 1:
-               transform.Translate(Vector3.forward * Time.deltaTime * Speed);
+               transform.Translate(Vector3.forward * Time.deltaTime *  Speed);
                 break;
             case 2:
                 transform.Translate(Vector3.back * Time.deltaTime * Speed);
@@ -90,14 +90,15 @@ public class classNPC : MonoBehaviour
                 transform.Rotate(-Vector3.up * Rot);
                 break;
             case 7:
-                transform.position += new Vector3(0, 0, 0);
+                transform.position += new Vector3(0, 0, 0) * Time.deltaTime;
                 break;
 
-          
+                   
 
-        }
+            }
+            
 
-        foreach (GameObject ObjectsTest in Instancias.Objects)
+            foreach (GameObject ObjectsTest in Instancias.Objects)
         {
             if (ObjectsTest.name == "Zombie") { 
 
@@ -106,12 +107,14 @@ public class classNPC : MonoBehaviour
             if (Vector3.Distance(ObjectsTest.transform.position, GameObject.FindGameObjectWithTag("Hero").transform.position) < distancia)
             {
                     zinfo = ObjectsTest.gameObject.GetComponent<Zombies>().zInformation;
-
+                     
                     Instancias.TransformMsgZombiesStatic.GetComponent<Text>().text = "Waaaarrrr quiero comer " + zinfo.gusto;
                     StartCoroutine(limpiarmensaje(3));
-                }
+                        init.keep = state.pursuing;
+                    }
         }
     }
+        }
 
     }
     public void Move()//a function is created for the movement.
@@ -170,8 +173,8 @@ public class classNPC : MonoBehaviour
         Instancias.TransformMsgZombiesStatic.GetComponent<Text>().text = "";
 
     }
-
 }
+
 public enum state//a list is made of the zombie state.
 {
     idle, move, rotation, pursuing,

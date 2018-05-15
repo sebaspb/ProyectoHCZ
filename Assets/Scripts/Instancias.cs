@@ -55,6 +55,12 @@ public class Instancias : MonoBehaviour
 
     public Text MsgZombies;
 
+    public static Transform TransformMsgGOStatic;
+
+    public Transform TransformMSgGO;
+
+    public Text MSgGO;
+
     //A list called Objects is created to save what is inside the foreach.
 
     public static List<GameObject> Objects = new List<GameObject>();
@@ -78,6 +84,7 @@ public class Instancias : MonoBehaviour
 
     private void Start () 
 	{
+        TransformMsgGOStatic = TransformMSgGO;
         TransformMsgCitizenStatic = TransformMsgCitizen;
         TransformMsgZombiesStatic = TransformMsgZombies;
         //The bool heroeasginado is checked; if it's false we proceed to create the hero
@@ -215,10 +222,10 @@ public class Instancias : MonoBehaviour
 
     void Update()
     {
-
+        if (Time.timeScale != 0) { 
         TransformMsgCitizen = TransformMsgCitizenStatic;
-
-     }
+        }
+    }
 
 }
 
