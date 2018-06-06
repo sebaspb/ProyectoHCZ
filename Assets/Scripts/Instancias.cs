@@ -20,44 +20,45 @@ public class Instancias : MonoBehaviour
      *number of entities that are generated, in order to control and report in the event that more than 20 are generated.*/
     float totalentidades = 0;
 
-    //A public Transform is created to occupy the space of the interface to display the number of zombies
+    //A public Transform is created to save the number of zombies(totalZombies) in the scene.
     public Transform TransformTextoZombies;
 
-    //Se crea un componente texto para que se pueda colocar lo que hay en totalZombies
+    //A text component is created so that you can place what is in totalZombies.
     public Text TextoZombie;
 
-    //A public Transform is created to occupy the space of the interface to display the number of Citizen
+    //A public Transform is created to save the number of Citizen(totalCitizen) in the scene.
     public Transform TransformTextoCitizen;
 
-    //Se crea un componente texto para que se pueda colocar lo que hay en totalZombies
-
+    //A text component is created so that you can place what is in total(totalCitizen).
     public Text TextoCitizens;
 
-    //A public Transform is created to occupy the space of the interface to display the number of Citizen
+    //A public Transform is created to occupy the space of the interface to display the message of the citizen.
     public static Transform TransformMsgCitizenStatic;
 
-
-    //A public Transform is created to occupy the space of the interface to display the number of Citizen
+    //A public Transform is created to display the citizens' message in the interface.
     public Transform TransformMsgCitizen;
 
-    //Se crea un componente texto para que se pueda colocar lo que hay en totalZombies
+    //A text component is created so that you can place what is in CitizenInformation(name and age).
 
     public Text MsgCitizens;
 
-    //A public Transform is created to occupy the space of the interface to display the number of Citizen
+    //A public static Transform is created so that the Zombies' messages change if it is a different Zombie.
     public static Transform TransformMsgZombiesStatic;
 
-
-    //A public Transform is created to occupy the space of the interface to display the number of Citizen
+    //A public Transform is created to display the message of the Zombies in the interface.
     public Transform TransformMsgZombies;
 
-    //Se crea un componente texto para que se pueda colocar lo que hay en totalZombies
-
+    //A public Text is created to show what is saved in ZGusto.
     public Text MsgZombies;
+
+    //A public static Transform is created so that the GameOver message always appears if the hero touches a Zombie.
 
     public static Transform TransformMsgGOStatic;
 
+    //A public Transform is created to display the GameOver message in the interface.
     public Transform TransformMSgGO;
+
+    //A public Text is created to display the GameOver message.
 
     public Text MSgGO;
 
@@ -84,6 +85,7 @@ public class Instancias : MonoBehaviour
 
     private void Start () 
 	{
+        //Here it is said that all static Transform are the same as the respective Transform.
         TransformMsgGOStatic = TransformMSgGO;
         TransformMsgCitizenStatic = TransformMsgCitizen;
         TransformMsgZombiesStatic = TransformMsgZombies;
@@ -117,7 +119,7 @@ public class Instancias : MonoBehaviour
             heroeasignado = true;
             //The totalentidades values is increased by one.
             totalentidades += 1;
-
+            //Add the object Objeto so that it remains in the Objects list
             Objects.Add(Objeto);
         }
 
@@ -156,7 +158,7 @@ public class Instancias : MonoBehaviour
                     totalentidades += 1;
                     //All GameObjects called Objeto are added and saved in Objects
                     Objects.Add(Objeto);
-                    Objeto.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+                    //This is done so that citizens do not fly off on the Y and Z axes.
                     Objeto.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ;
                     Objeto.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationY;
                     break;
@@ -216,14 +218,18 @@ public class Instancias : MonoBehaviour
             //The TextZombies transform with the Text component is equal to the totalZombies value and that becomes the String
             TransformTextoCitizen.GetComponent<Text>().text = "Total Ciudadanos: " + totalCiudadanos.ToString();
 
-        //El canvas de los mensajes de zombies y ciudadanos se hace llamando la lista creada en instancias en un foreach 
+        //The canvas of zombies and citizens messages is made by calling the list created in instances in a foreach 
     }
 
 
     void Update()
     {
-        if (Time.timeScale != 0) { 
-        TransformMsgCitizen = TransformMsgCitizenStatic;
+        //If the time scale is different than 0
+        if (Time.timeScale != 0) 
+        { 
+            //TransformMsgCitizen = TransformMsgCitizenStatic
+            TransformMsgCitizen = TransformMsgCitizenStatic;
+        
         }
     }
 

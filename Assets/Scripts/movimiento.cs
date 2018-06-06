@@ -28,36 +28,44 @@ public class movimiento : MonoBehaviour
     }
 	
     //Update is called each frame.
-	void Update ()
-    {
-        if (Time.timeScale != 0) { 
-        //We create a new gameobject called hero that's equal to the gameobject with the hero tag.
-        GameObject Hero = GameObject.FindGameObjectWithTag("Hero");
-
-        //If we press the "w" key, the hero will transform it's position forward at the speed value.
-        if (Input.GetKey("w"))
+	    void Update ()
         {
-            Hero.transform.position += Hero.transform.forward * speed;
-        }
+            if (Time.timeScale != 0)
+            { 
+                //We create a new gameobject called hero that's equal to the gameobject with the hero tag.
+                GameObject Hero = GameObject.FindGameObjectWithTag("Hero");
 
-        //If we press the "s" key, the hero will transform it's position backwards at the speed value.
-        if (Input.GetKey("s"))
-        {
-            Hero.transform.position -= Hero.transform.forward * speed;
-        }
+                //If we press the "w" key, the hero will transform it's position forward at the speed value.
+            if (Input.GetKey("w"))
+            {
+                
+                Hero.transform.position += Hero.transform.forward * speed;
 
-        //If we press the "a" key, the hero will transform it's position to the right at the speed value.
-        if (Input.GetKey("a"))
-        {
-            Hero.transform.position -= Hero.transform.right * speed;
-        }
+            }
 
-        //If we press the "d" key, the hero will transform it's position to the left at the speed value.
-        if (Input.GetKey("d"))
-        {
-            Hero.transform.position += Hero.transform.right * speed;
-        }
+            //If we press the "s" key, the hero will transform it's position backwards at the speed value.
+            if (Input.GetKey("s"))
+            {
 
-    }
+                Hero.transform.position -= Hero.transform.forward * speed;
+
+            }
+
+            //If we press the "a" key, the hero will transform it's position to the right at the speed value.
+            if (Input.GetKey("a"))
+            {
+                
+                Hero.transform.position -= Hero.transform.right * speed;
+
+            }
+
+            //If we press the "d" key, the hero will transform it's position to the left at the speed value.
+            if (Input.GetKey("d"))
+            {
+
+                Hero.transform.position += Hero.transform.right * speed;
+
+            }
+        }
     }
 }

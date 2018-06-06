@@ -9,7 +9,7 @@ namespace NPC
     //This makes what is put in the script into a library.
     namespace Enemy
     {
-        //Al zombie se le debe dar una edad y cuando un zombie convierta a un ciudadano en zombie éste debe mantener la edad del ciudadano que se convirtió.
+        //It says here that the Zombies class inherits from the classNPC.
         public class Zombies : classNPC
         {
            
@@ -72,17 +72,20 @@ namespace NPC
             //We create a new structure from the previous data, this structure is called Zinformation.
             public ZombieInformation zInformation;
 
+            //This is done so that this class inherits from the method in the classNPC
             override public void Herent()
             {
-
+                //This says the rotation speed ranges from 1 to 10.
                 Rot = Random.Range(1, 10);
+                //It says here to start what is in the Move method.
                 Move();
-               // init.age = Random.Range(15, 100);//the age of the civilians is added at random between 15 and 100 years of age.
+                //The age of the civilians is added at random between 15 and 100 years of age.
+                init.age = Random.Range(15, 100);//the age of the civilians is added at random between 15 and 100 years of age.
                
                 
             }
 
-         
+            //A numberer is created to put the colors that the Zombie has on it
             public enum zColor
             {
 
@@ -96,34 +99,33 @@ namespace NPC
             //Start is called only once at the star.
             void Start() 
             {
+               //This is to obtain the components of the NPC class. 
                base.Herent();
+               //Here an int is created that is the same as the zColor names.                 
                int ZoColor = zColor.GetNames(typeof(zColor)).Length;
+               //This gets the renderer component of the object.
                this.gameObject.GetComponent<Renderer>();
+               //The Colors method is activated.
                Colors();
             
             }
 
         
-
-
+            //This checks the collision of the other object.
             void OnCollisionEnter(Collision other)
             {
+                //It says here that if other collides with the citizen object then...
                 if(other.gameObject.GetComponent<Citizen>())
                 {
-
+                    //Citizen c is the same as the other object with the citizen component    
                     Citizen c = other.gameObject.GetComponent<Citizen>();
+                    //Zombies z equals object c.
                     Zombies z = c;
 
                 }
-                
             }                       
         }
-
-         
-        
     }
-
-    
 }         
 
          

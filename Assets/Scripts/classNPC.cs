@@ -6,46 +6,60 @@ using NPC.Enemy;
 using UnityEngine.UI;
 public class classNPC : MonoBehaviour 
 {
+    //A Date is created to put information on the age and status of Zombies and citizens.
 	public Date init;
+
+    //A protected float is created to control the speed of Zombies and Citizens.
     protected float Speed;
+
+    //A protected float is created to control the rotation speed of the Zombies and Citizens.
     protected float Rot;
+
+    //A protected int is created to control the cases.
     protected int cases;
 
+    //A public Transform is created for the purpose of the Zombies
     public Transform Objetivo;
+
+    //This is called the Zombie information.
     public Zombies.ZombieInformation zinfo;
 
+    //Here a Vector3(x,y,z) is created.
     Vector3 direction;
 
+    //Here you create a public float with a value of 5.
     public float distancia = 5;
-    public static float distanciastatic;
 
-    
+    //Here you create a method that you can call up from other classes that inherit from classNPC.      
     virtual public void Herent()
     {
-
+        //This says the rotation speed ranges from 1 to 10.
         Rot = Random.Range(1, 10);
+        //It says here to start what is in the Move method.
         Move();
-        init.age = Random.Range(15, 100);//the age of the civilians is added at random between 15 and 100 years of age.
+        //The age of the civilians is added at random between 15 and 100 years of age.
+        init.age = Random.Range(15, 100);
       
     }
 
+    //Here you create a method that you can call up from other classes that inherit from classNPC.  
     virtual public void test()
     {
-
-
- 
-
+        //It says here that for each GameObject with the name ObjectsTest in the list of Instances called Objects.
         foreach (GameObject ObjectsTest in Instancias.Objects)
         {
 
+            //It says here that if the object with the Citizen component or the object with the Hero component
             if (ObjectsTest.GetComponent<Citizen>() || ObjectsTest.GetComponent<Hero>())
             {
-
+                //Aquí se comprueba la distancia entre el objeto de la lista y el zombi; si es más pequeño a una distancia(5) entonces...
                 if (Vector3.Distance(ObjectsTest.transform.position, transform.position) < distancia)
                 {
-
+                    //The state of both the Zombies and the citizens to be equal to pursuing
                     init.keep = state.pursuing;
+                    //This tells you where the Zombie should go and how fast.
                     transform.position = Vector3.MoveTowards(transform.position, ObjectsTest.transform.position, Speed);
+                    //This is where the corutine that activates the states in classNPC.
                     StopCoroutine(Movement());
 
 
@@ -64,67 +78,75 @@ public class classNPC : MonoBehaviour
     void Update()
     {
 
-       
-        if (Time.timeScale != 0) { 
+        //If timeScale it's diferent of 0.
+        if (Time.timeScale != 0)
+        { 
 
-        test();
+            test();
            
-        switch (cases)//the switch is used for different positions where the zombie is directed.
-        {
-            case 1:
-               transform.Translate(Vector3.forward * Time.deltaTime *  Speed);
+            //The switch is used for different positions where the Zombie and Citizen is directed.
+            switch (cases)
+            {
+                case 1:
+                    transform.Translate(Vector3.forward * Time.deltaTime *  Speed);
+                    break;
+                case 2:
+                    transform.Translate(Vector3.back * Time.deltaTime * Speed);
+                    break;
+                case 3:
+                    transform.Translate(Vector3.right * Time.deltaTime * Speed);
                 break;
-            case 2:
-                transform.Translate(Vector3.back * Time.deltaTime * Speed);
-                break;
-            case 3:
-                transform.Translate(Vector3.right * Time.deltaTime * Speed);
-                break;
-            case 4:
-                transform.Translate(-Vector3.right * Time.deltaTime * Speed);
-                break;
-            case 5:
-                transform.Rotate(Vector3.up * Rot);
-                break;
-            case 6:
-                transform.Rotate(-Vector3.up * Rot);
-                break;
-            case 7:
-                transform.position += new Vector3(0, 0, 0) * Time.deltaTime;
-                break;
-
-                   
-
+                case 4:
+                    transform.Translate(-Vector3.right * Time.deltaTime * Speed);
+                    break;
+                case 5:
+                    transform.Rotate(Vector3.up * Rot);
+                    break;
+                case 6:
+                    transform.Rotate(-Vector3.up * Rot);
+                    break;
+                case 7:
+                    transform.position += new Vector3(0, 0, 0) * Time.deltaTime;
+                    break;
             }
             
-
+            //It says here that for each GameObject named ObjectsTest in the Objects list of Instances then...    
             foreach (GameObject ObjectsTest in Instancias.Objects)
-        {
-            if (ObjectsTest.name == "Zombie") { 
-
-                
-
-            if (Vector3.Distance(ObjectsTest.transform.position, GameObject.FindGameObjectWithTag("Hero").transform.position) < distancia)
             {
-                    zinfo = ObjectsTest.gameObject.GetComponent<Zombies>().zInformation;
-                     
-                    Instancias.TransformMsgZombiesStatic.GetComponent<Text>().text = "Waaaarrrr quiero comer " + zinfo.gusto;
-                    StartCoroutine(limpiarmensaje(3));
+                //If the object in the list is named Zombie
+                if (ObjectsTest.name == "Zombie")
+                {                  
+                    //If the object is in a place less than the distance from the object with the Hero tag then...
+                    if (Vector3.Distance(ObjectsTest.transform.position, GameObject.FindGameObjectWithTag("Hero").transform.position) < distancia)
+                    {
+                        //It says here that zinfo is the same as the object with the Zombies component.
+                        zinfo = ObjectsTest.gameObject.GetComponent<Zombies>().zInformation;
+                        //It says here that the message appears on the interface.
+                        Instancias.TransformMsgZombiesStatic.GetComponent<Text>().text = "Waaaarrrr quiero comer " + zinfo.gusto;
+                        //This is where the corutina starts in 3 seconds.
+                        StartCoroutine(limpiarmensaje(3));
+                        //This is where you go into the pursuing state.
                         init.keep = state.pursuing;
                     }
+                }
+            }
         }
     }
+
+    //A function is created for the movement.
+    public void Move()
+   {
+        //If the state is at idle.
+        if (init.keep == state.idle)
+        {
+            //Stays in place since it's case 5.
+            cases = 7;
+            //It's called coroutine.
+            StartCoroutine(Movement());
         }
 
-    }
-    public void Move()//a function is created for the movement.
-    {
-        if (init.keep == state.idle)//if the state is at idle.
-        {
-            cases = 7;//stays in place since it's case 5.
-            StartCoroutine(Movement());//it's called coroutine.
-        }
-        else if (init.keep == state.move)//if not, if the state this move.
+        else if (init.keep == state.move)
+        //If not, if the state this move.
         {
             if (init.age > 15 && init.age < 30)
             {
@@ -150,40 +172,57 @@ public class classNPC : MonoBehaviour
             {
                 Speed = 0.1f;
             }
-            cases = Random.Range(1,4);//calls the switch to move in different positions.
-            StartCoroutine(Movement());//it's called coroutine.
+            //Calls the switch to move in different positions.
+            cases = Random.Range(1,4);
+            //It's called coroutine.
+            StartCoroutine(Movement());
+            
         }
-        else if (init.keep == state.rotation)//if not, if the state this rotation.
+        //If not, if the state this rotation.
+        else if (init.keep == state.rotation)
         {
-            cases = Random.Range(5, 6);//calls the switch to move in different positions.
-            StartCoroutine(Movement());//it's called coroutine
+            //Calls the switch to move in different positions.
+            cases = Random.Range(5, 6);
+            //It's called coroutine
+            StartCoroutine(Movement());
         }
     }
-    public IEnumerator Movement()//se hace una coroutine para el estado del mivimeinto.
+    //se hace una coroutine para el estado del movimiento.
+    public IEnumerator Movement()
     {
-        yield return new WaitForSeconds(3);//takes 3 seconds to work.
-        init.keep = (state)Random.Range(0, 3);//is called one of the two states.
-        Move();//is called the Move function.
-        yield return new WaitForSeconds(3);//takes 3 seconds to work.
+        //Takes 3 seconds to work.
+        yield return new WaitForSeconds(3);
+        //Is called one of the three states.
+        init.keep = (state)Random.Range(0, 3);
+        //Is called the Move function.
+        Move();
     }
 
+    //Corutine to clean up zombie messages with a variable called time.
     IEnumerator limpiarmensaje(float time)
     {
+        //This causes each Zombie's message to be deleted from time to time.
         yield return new WaitForSeconds(time);
+        //This is where the Zombies' message is cleaned up.
         Instancias.TransformMsgZombiesStatic.GetComponent<Text>().text = "";
 
     }
 }
 
-public enum state//a list is made of the zombie state.
+//A list is made of the zombie state.
+public enum state
 {
     idle, move, rotation, pursuing,
 }
-public struct Date//the structure is made to be able to call the food, the state and the color to the Zombie class.
-{
-    public state keep;//becomes a standard enum variable for the state.
-    public int age;//an int variable is made for age.
 
+//The structure is made to be able to call the food, the state and the color to the Zombie class.
+public struct Date
+{
+    //Becomes a standard enum variable for the state.
+    public state keep;
+
+    //an int variable is made for age.
+    public int age;
 }
 
 
