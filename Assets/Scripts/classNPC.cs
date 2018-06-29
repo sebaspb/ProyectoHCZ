@@ -29,7 +29,7 @@ public class classNPC : MonoBehaviour
 
     //Here you create a public float with a value of 5.
     public float distancia = 5;
-
+    
     //Here you create a method that you can call up from other classes that inherit from classNPC.      
     virtual public void Herent()
     {
@@ -39,7 +39,6 @@ public class classNPC : MonoBehaviour
         Move();
         //The age of the civilians is added at random between 15 and 100 years of age.
         init.age = Random.Range(15, 100);
-      
     }
 
     //Here you create a method that you can call up from other classes that inherit from classNPC.  
@@ -52,7 +51,7 @@ public class classNPC : MonoBehaviour
             //It says here that if the object with the Citizen component or the object with the Hero component
             if (ObjectsTest.GetComponent<Citizen>() || ObjectsTest.GetComponent<Hero>())
             {
-                //Aquí se comprueba la distancia entre el objeto de la lista y el zombi; si es más pequeño a una distancia(5) entonces...
+                //Here the distance between the object in the list and the zombie is checked; if it is smaller at a distance(5) then....
                 if (Vector3.Distance(ObjectsTest.transform.position, transform.position) < distancia)
                 {
                     //The state of both the Zombies and the citizens to be equal to pursuing
@@ -61,30 +60,18 @@ public class classNPC : MonoBehaviour
                     transform.position = Vector3.MoveTowards(transform.position, ObjectsTest.transform.position, Speed);
                     //This is where the corutine that activates the states in classNPC.
                     StopCoroutine(Movement());
-
-
                 }
-
-            
             }
-
         }
     }
 
-
-
-
-
     void Update()
     {
-
         //If timeScale it's diferent of 0.
         if (Time.timeScale != 0)
         { 
-
             test();
-           
-            //The switch is used for different positions where the Zombie and Citizen is directed.
+            //The switch is used for different positions where the Zombie and Citizen are moving to.
             switch (cases)
             {
                 case 1:
@@ -114,7 +101,7 @@ public class classNPC : MonoBehaviour
             foreach (GameObject ObjectsTest in Instancias.Objects)
             {
                 //If the object in the list is named Zombie
-                if (ObjectsTest.name == "Zombie")
+                if (ObjectsTest.tag == "Zombie")
                 {                  
                     //If the object is in a place less than the distance from the object with the Hero tag then...
                     if (Vector3.Distance(ObjectsTest.transform.position, GameObject.FindGameObjectWithTag("Hero").transform.position) < distancia)
@@ -123,8 +110,24 @@ public class classNPC : MonoBehaviour
                         zinfo = ObjectsTest.gameObject.GetComponent<Zombies>().zInformation;
                         //It says here that the message appears on the interface.
                         Instancias.TransformMsgZombiesStatic.GetComponent<Text>().text = "Waaaarrrr quiero comer " + zinfo.gusto;
+                        //This is where the coroutine starts in 3 seconds.
+                        StartCoroutine(cleanmessage(3));
+                        //This is where you go into the pursuing state.
+                        init.keep = state.pursuing;
+                    }
+                }
+                //If the object in the list is named ZombieRed
+                if(ObjectsTest.tag == "ZombieRed")
+                {
+                     //If the object is in a place less than the distance from the object with the Hero tag then...
+                    if (Vector3.Distance(ObjectsTest.transform.position, GameObject.FindGameObjectWithTag("Hero").transform.position) < distancia)
+                    {
+                        //It says here that zinfo is the same as the object with the Zombies component.
+                        zinfo = ObjectsTest.gameObject.GetComponent<Zombies>().zInformation;
+                        //It says here that the message appears on the interface.
+                        Instancias.TransformMsgZombiesStatic.GetComponent<Text>().text = "Waaaarrrr quiero comer " + zinfo.gusto;
                         //This is where the corutina starts in 3 seconds.
-                        StartCoroutine(limpiarmensaje(3));
+                        StartCoroutine(cleanmessage(3));
                         //This is where you go into the pursuing state.
                         init.keep = state.pursuing;
                     }
@@ -135,7 +138,7 @@ public class classNPC : MonoBehaviour
 
     //A function is created for the movement.
     public void Move()
-   {
+    {
         //If the state is at idle.
         if (init.keep == state.idle)
         {
@@ -199,13 +202,12 @@ public class classNPC : MonoBehaviour
     }
 
     //Corutine to clean up zombie messages with a variable called time.
-    IEnumerator limpiarmensaje(float time)
+    IEnumerator cleanmessage(float time)
     {
         //This causes each Zombie's message to be deleted from time to time.
         yield return new WaitForSeconds(time);
         //This is where the Zombies' message is cleaned up.
         Instancias.TransformMsgZombiesStatic.GetComponent<Text>().text = "";
-
     }
 }
 
@@ -224,6 +226,10 @@ public struct Date
     //an int variable is made for age.
     public int age;
 }
+
+
+
+
 
 
 

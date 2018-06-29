@@ -7,6 +7,10 @@ TagManager:
   - Ciudadano
   - Zombie
   - Hero
+  - Bullet
+  - Gun
+  - ZombieRed
+  - Keys
   layers:
   - Default
   - TransparentFX

@@ -13,29 +13,19 @@ public class movimiento : MonoBehaviour
     {
         //Here it is said that speed is equal to the randomV variable of the Hero script
         speed = Hero.randomV;
-        
     }
 
-   
 
-
-
-    /*Start is called only once at the start*/
-    void Start ()
-    {
-        //At the start we assign the speed with a random range between 0.1 and 1
-       
-    }
 	
     //Update is called each frame.
-	    void Update ()
-        {
-            if (Time.timeScale != 0)
-            { 
-                //We create a new gameobject called hero that's equal to the gameobject with the hero tag.
-                GameObject Hero = GameObject.FindGameObjectWithTag("Hero");
+	void Update ()
+    {
+        if (Time.timeScale != 0)
+        { 
+            //We create a new gameobject called hero that's equal to the gameobject with the hero tag.
+            GameObject Hero = GameObject.FindGameObjectWithTag("Hero");
 
-                //If we press the "w" key, the hero will transform it's position forward at the speed value.
+            //If we press the "w" key, the hero will transform it's position forward at the speed value.
             if (Input.GetKey("w"))
             {
                 

@@ -14,11 +14,11 @@ namespace NPC
         {
             //we create a new structure that will store the citizen information (age and name).
 
-            
             public struct CitizenInformation
             {
                 public int age;
                 public CitizenName name;
+
             }
 
             //We create a new structure with the previous data called cInformation.
@@ -79,13 +79,9 @@ namespace NPC
                             transform.position = Vector3.MoveTowards(transform.position, ObjectsTest.transform.position, -Speed);
                             //This is where the corutine that activates the states in classNPC
                             StopCoroutine(Movement());
-                   
                         }
-
                     }
-
                 }       
-
             }
 
             //Here you create an object in Zombies(Citizen c)    
@@ -101,7 +97,6 @@ namespace NPC
                 Destroy(c);
                 //returns Z for the citizen to become a complete zombie
                 return z;
-
             }
            
 
@@ -117,9 +112,6 @@ namespace NPC
                 //Here it is said that the age in Citizen is equal to the age in the classNPC
                 cInformation.age = init.age;
             }
-
-
-           
         }
     }
 }
